@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 function Header() {
   return (
-    <div>Header</div>
+    <header>
+        <Container>
+            <Row>
+                <Col className='text-left py-3'>Header</Col>
+            </Row>
+        </Container>
+    </header>
   )
 }
 
