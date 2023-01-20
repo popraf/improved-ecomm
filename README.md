@@ -7,3 +7,4 @@ Ecommerce store programmed with react and django framework
 
 theme from https://bootswatch.com/
 https://react-bootstrap.github.io/
+icons https://cdnjs.com/libraries/font-awesome
