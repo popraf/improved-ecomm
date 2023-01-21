@@ -5,11 +5,9 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def getProduct(request, pk):
-    product = None
-    for i in product:
+    # product = None
+    for i in Product:
         if i['_id']==pk:
-            product = i
+            Product = i
             break
-
-    product='1'
-    return Response(product)
+    return Response(Product)
