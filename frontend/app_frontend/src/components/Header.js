@@ -6,22 +6,18 @@ function Header() {
     <header>
         <Navbar bg="dark" variant='dark' collapseOnSelect expand="lg">
         <Container>
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand href="#home">ImprovedEcomm</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 <Nav.Link href="#home"><i class="fa-solid fa-house"/>Home</Nav.Link>{/* edit icons from FontAwesomeIcon */}
-                <Nav.Link href="#link"><i class="fa-solid fa-user"/>Login</Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">test</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                    Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                </NavDropdown.Item>
+                <Nav.Link href="#login"><i class="fa-solid fa-user"/>Login</Nav.Link>
+                <NavDropdown title="Categories" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">First Category</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.2">Second Category</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">Third Category</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.4">All Products</NavDropdown.Item>
                 </NavDropdown>
             </Nav>
             </Navbar.Collapse>
