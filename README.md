@@ -2,7 +2,7 @@
 Ecommerce store programmed with react and django framework
 - django
 - react redux
-- postgres
+- postgres/docker img
 - demo payments
 
 theme from https://bootswatch.com/
