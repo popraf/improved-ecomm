@@ -152,3 +152,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .env_docker_notatki
+backend/app_backend/static/images/*

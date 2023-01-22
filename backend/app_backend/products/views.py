@@ -1,13 +1,21 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from products.models import Product
+from products.serializers import ProductSerializer
 
 
+# Return all products
+@api_view(['GET'])
+def getAllProducts(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+
+# Return a single product specified by primary key
 @api_view(['GET'])
 def getProduct(request, pk):
-    # product = None
-    for i in Product:
-        if i['_id']==pk:
-            Product = i
-            break
-    return Response(Product)
+    product = Product.objects.get(_id=pk)
+    serializer = ProductSerializer(product, many=False)
+    return Response(serializer.data)
