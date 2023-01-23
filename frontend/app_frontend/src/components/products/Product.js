@@ -7,6 +7,7 @@ function Product({ product }) {
 
             <a href={'/product/${product._id}'}>
                 <div>
+                    <h5>we are in productjs</h5>
                     {product.rating} from {product.numReviews} reviews
                 </div>
             </a>
