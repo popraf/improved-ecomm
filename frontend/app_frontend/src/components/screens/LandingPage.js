@@ -3,6 +3,9 @@ import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import listProducts from '../../actions/productActions';
 import Product from '../products/Product';
+import Message from '../Message';
+import Loader from '../Loader';
+
 
 function LandingPage() {
     const dispatch = useDispatch()
@@ -18,8 +21,8 @@ function LandingPage() {
         <div>
             <h1>Latest Products</h1>
             {
-                loading ? <h2>Loading...</h2>
-                    :error ? <h3>{error}</h3>
+                loading ? <Loader />
+                    :error ? <Message variant='danger'> {error} </Message>
                     :
                     <Row>
                         {products.map(product => (
