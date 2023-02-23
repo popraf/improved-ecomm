@@ -7,9 +7,10 @@ function ProductRating({ value, text, color }) {
                         ? 'fas fa-star'
                         : value >= 0.5
                             ? 'fas fa-star-half-alt'
-                            : 'fas fa-star'
+                            : 'far fa-star'
                 }></i>
             </span>
+            <span>{ text && text }</span>
         </div>
     )
 }

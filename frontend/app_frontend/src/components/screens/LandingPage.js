@@ -5,7 +5,7 @@ import listProducts from '../../actions/productActions';
 import Product from '../products/Product';
 import Message from '../Message';
 import Loader from '../Loader';
-
+import { products as productsz } from '../../products_demo_api';
 
 function LandingPage() {
     const dispatch = useDispatch()
@@ -20,7 +20,16 @@ function LandingPage() {
     return (
         <div>
             <h1>Latest Products</h1>
-            {
+            <Row>
+                {productsz.map(
+                    product => (
+                        <Col sm={12} md={6} lg={4} xl={3}>
+                            <h3>{product.name}</h3>
+                        </Col>
+                    )
+                )}
+            </Row>
+            {/* {
                 loading ? <Loader />
                     :error ? <Message variant='danger'> {error} </Message>
                     :
@@ -31,7 +40,7 @@ function LandingPage() {
                             </Col>
                         ))}
                     </Row>
-            }
+            } */}
 
         </div>
     )
