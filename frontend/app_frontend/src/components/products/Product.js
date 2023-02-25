@@ -19,7 +19,12 @@ function Product({ product }) {
                 <Card.Text as="div">
                     <div className="my-3">
                         {product.rating} from {product.numReviews} reviews
+                        < ProductRating value={product.rating} text={`${product.numReviews} reviews`} />
                     </div>
+                </Card.Text>
+
+                <Card.Text as="h3" className="text-black">
+                    ${product.price}
                 </Card.Text>
 
 {/* 

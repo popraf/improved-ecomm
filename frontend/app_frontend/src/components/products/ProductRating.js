@@ -1,15 +1,30 @@
-function ProductRating({ value, text, color }) {
-    return (
-        <div>
+function ProductRating({ value, text }) {
+    const color = '#000000';
+    const starClassInactive = 'far fa-star';
+    const halfStarClass = 'fas fa-star-half-alt';
+    const starClassActive = 'fas fa-star';
+
+    value = value.toFixed(1);
+    const numStarsActive = Math.floor(value);
+    const numHalfStar = ((value - numStarsActive) >= 0.5) ? 1 : 0;
+
+    let starsArr = [];
+
+    for (let i=1; i<=5; i++) {
+        starsArr.push(
             <span>
                 <i style={{color}} className={
-                    value>=1
-                        ? 'fas fa-star'
-                        : value >= 0.5
-                            ? 'fas fa-star-half-alt'
-                            : 'far fa-star'
+                    i <= numStarsActive ? starClassActive
+                        : (numHalfStar === 1) &&  (i === (numStarsActive+1)) ? halfStarClass
+                            : starClassInactive
                 }></i>
             </span>
+            );
+    };
+
+    return (
+        <div>
+            { starsArr }
             <span>{ text && text }</span>
         </div>
     )
