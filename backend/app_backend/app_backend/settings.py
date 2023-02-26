@@ -28,6 +28,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
+    'corsheaders', # allows requests to backend api from other origins
+
     'base.apps.BaseConfig',
     'products.apps.ProductsConfig',
 ]
@@ -35,6 +37,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # allows requests to backend api from other origins; 
+                                             # CorsMiddleware should be placed as high as possible, especially before any middleware that can generate responses such as CommonMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -130,3 +134,12 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
 MEDIA_URL = '/images/'
+
+#    CORS_ORIGIN_ALLOW_ALL: If True, all origins will be accepted (not use the whitelist below). Defaults to False.
+#    CORS_ORIGIN_WHITELIST: List of origins that are authorized to make cross-site HTTP requests. Defaults to [].
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8000',
+    'http://localhost:3000',
+)

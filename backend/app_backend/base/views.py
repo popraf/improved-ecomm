@@ -7,8 +7,8 @@ from rest_framework.response import Response
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
-        'route1',
-        'route2',
+        'products',
+        'product/<str:pk>/',
     ]
     return Response(routes)
 
