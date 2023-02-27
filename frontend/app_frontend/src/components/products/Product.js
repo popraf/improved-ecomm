@@ -1,12 +1,13 @@
 import { Card } from "react-bootstrap";
 import ProductRating from "./ProductRating";
 import { Link } from "react-router-dom";
+import { backendApiURL } from "../../http-common";
 
 function Product({ product }) {
     return (
         <Card className="my-3 p-3 rounded">
             <Link to={`/product/${product._id}`}>
-                <Card.Img src={product.image}/>
+                <Card.Img src={`${backendApiURL}${product.image}`}/>
             </Link>
 
             <Card.Body>

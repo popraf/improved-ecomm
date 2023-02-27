@@ -1,64 +1,97 @@
-import axios from 'axios';
-import { useEffect, useState, useHistory } from 'react';
-import { Row, Col, Image, ListGroup, Button, Card, ListGroupItem } from 'react-bootstrap';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import {  Row,  Col,  Image,  ListGroup,  Button,  Card,  ListGroupItem } from "react-bootstrap";
+import { backendApiURL } from "../../http-common";
+import ProductRating from "../products/ProductRating";
+import { listProductDetails } from "../../actions/productActions";
+import Loader from "../Loader";
+import Message from "../Message";
 
+const ProductPage = () => {
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const productDetails = useSelector((state) => state.productDetails);
+    const { loading, error, product } = productDetails;
 
-const ProductPage = ({ match }) => {
-    const [product, setProduct] = useState({});
-    let history = useHistory(); 
-  
-    const handleDelete = async (e) => {
-      await axios.delete(`/products/${match.params.id}`)
-      history.push('/')
-    };  
-  
-    const handleUpdate = async () => {
-      history.push(`/updateProduct/${product.id}`)
-    }; 
-    
     useEffect(() => {
-      const fetchProduct = async() => {
-        const { data } = await axios.get(`/products/${match.params.id}`);
-        setProduct(data);
-      };
-      fetchProduct();
-      }, []);
-  
-  
+        dispatch(listProductDetails(id));
+    }, []);
+
     return (
-      <Row>
-        <div className="container single-product">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="single-image">
-                <img src={product.image_url} alt={product.name} />
-              </div>
+        <div>
+        <Link to="/" className="btn btn-light my-3">Go Back</Link>
+        {loading ? (
+            <Loader />
+        ) : error ? (
+            <Message variant="danger">{error}</Message>
+        ) : (
+            <div>
+            <Row>
+                <Col md={6}>
+                <Image src={`${backendApiURL}${product.image}`} alt={product.name} fluid />
+                </Col>
+
+                <Col md={3}>
+                <ListGroup variant="flush">
+                    <ListGroup.Item>
+                    <h3>{product.name}</h3>
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>
+                    <ProductRating
+                        value={product.rating}
+                        text={`${product.numReviews} reviews`}
+                        color={"#f8e825"}
+                    />
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+
+                    <ListGroup.Item>
+                    Description: {product.description}
+                    </ListGroup.Item>
+                </ListGroup>
+                </Col>
+
+                <Col md={3}>
+                <Card>
+                    <ListGroup variant="flush">
+                        <ListGroup.Item>
+                            <Row>
+                            <Col>Price:</Col>
+                            <Col>
+                                <strong>${product.price}</strong>
+                            </Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                            <Col>Status:</Col>
+                            <Col>
+                                {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+                            </Col>
+                            </Row>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
+                </Col>
+            </Row>
+
+            <Row>
+                <Col md={6}>
+                <h4>Reviews</h4>
+                <ListGroup variant="flush">
+                    <ListGroup.Item>
+                    <h4>Write a review</h4>
+                    </ListGroup.Item>
+                </ListGroup>
+                </Col>
+            </Row>
             </div>
-            <div className="col-md-6">
-              <div className="product-dtl">
-                <div className="product-info">
-                  <div className="product-name">{product.name}</div>
-                </div>
-                <p>{product.description}</p>
-                <div className="product-count col-lg-7 ">
-                  <div className="flex-box d-flex justify-content-between align-items-center">
-                    <h6>Price</h6>
-                    <span>${product.price}</span>
-                    <div className="logo-image">
-                      <img className="logo" src={product.logo} alt={product.name} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 justify-content-center">
-                  <button type="button" onClick={handleUpdate}>Update</button>
-                  <button type="button" onClick={handleDelete}>Delete</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        )}
         </div>
-      </Row>
     );
-  };
-  
-  export default ProductPage;
+    };
+
+export default ProductPage;
