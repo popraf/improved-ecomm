@@ -18,7 +18,7 @@ const ProductPage = () => {
     const addProductToCartHandler = () => {
         // console.log('Add to cart: ', {id})
         // console.log('Navigate string: ', `/cart/${id}?${qty}`)
-        navigate(`/cart/${id}?${qty}`);
+        navigate(`/cart/${id}?qty=${qty}`);
     }
 
     useEffect(() => {
