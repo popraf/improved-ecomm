@@ -88,13 +88,13 @@ const ProductPage = () => {
                                     <Col className="d-flex align-items-center">
                                         Qty: {product.countInStock}
                                     </Col>
-                                    <Col xs="auto" className="my-1">
-                                        <Form.Control 
+                                    <Col >
+                                        <Form.Select 
                                             as="select" 
                                             value={qty}
                                             onChange={(event) => setQty(event.target.value)}>
                                             {[...Array(product.countInStock).keys()].map((x) => (<option key={x+1} value={x+1}>{x+1}</option>))}
-                                        </Form.Control>
+                                        </Form.Select>
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
@@ -104,7 +104,7 @@ const ProductPage = () => {
 
                         {
                             product.countInStock > 0 && (
-                                <ListGroup.Item>
+                                <ListGroup.Item className='d-flex justify-content-center'>
                                     <Button onClick={addProductToCartHandler}>Add to cart</Button>
                                 </ListGroup.Item>
                             )
