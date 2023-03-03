@@ -3,7 +3,7 @@ import { Link, useParams, useSearchParams, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Form, Button, Card } from "react-bootstrap";
 import Message from "../Message";
-import { addToCart } from "../../actions/userCartActions";
+import { removeFromUserCart, addToCart } from "../../actions/userCartActions";
 import { backendApiURL } from "../../http-common";
 
 function UserCartPage({match}) {
@@ -19,6 +19,10 @@ function UserCartPage({match}) {
     
     const checkoutHandler = () => {
         navigate('/login?redirect=shipping')
+    }
+
+    const removeFromCartHandler = (id) => {
+        dispatch(removeFromUserCart(id))
     }
 
     useEffect(() =>{
@@ -56,6 +60,15 @@ function UserCartPage({match}) {
                                             {[...Array(item.countInStock).keys()].map((x) => (<option key={x+1} value={x+1}>{x+1}</option>))}
                                         </Form.Select>
                                     </Col>
+                                    <Col>
+                                        <Button
+                                                type='button'
+                                                variant='light'
+                                                onClick={() => removeFromCartHandler(item.product)}
+                                            >
+                                                <i className='fas fa-trash'></i>
+                                        </Button>
+                                    </Col>
                                 </Row>
                             </ListGroup.Item>
                         ))}
@@ -74,6 +87,8 @@ function UserCartPage({match}) {
                                     Proceed To Checkout
                                 </Button>
                             </ListGroup.Item>
+
+                            
                         </ListGroup>
                     </Card>
                 </Col>

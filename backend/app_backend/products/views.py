@@ -4,6 +4,13 @@ from rest_framework.response import Response
 from products.models import Product
 from products.serializers import ProductSerializer
 
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        'products',
+        'product/<str:pk>/',
+    ]
+    return Response(routes)
 
 # Return all products
 @api_view(['GET'])
