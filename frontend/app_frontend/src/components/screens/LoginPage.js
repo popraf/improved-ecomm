@@ -37,18 +37,19 @@ const LoginPage = () => {
             {loading && <Loader/>}
             <Form onSubmit={onSubmitLoginHandler}>
             
-                <Form.Group controlId="email">
+                <Form.Group className="mb-3" controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" placeholder="Enter email address" value={userEmail} onChange={(event) => setUserEmail(event.target.value)}></Form.Control>
                 </Form.Group>
 
-                <Form.Group controlId="password">
+                <Form.Group className="mb-3" controlId="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" value={userPassword} onChange={(event) => setUserPassword(event.target.value)}></Form.Control>
                 </Form.Group>
-                <Form.Group>
-                    <Button variant="primary" type="submit">Login</Button>
-                </Form.Group>
+
+                {/* <Form.Group> */}
+                <Button variant="primary" type="submit">Login</Button>
+                {/* </Form.Group> */}
             </Form>
 
             <Row className="py-3">

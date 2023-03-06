@@ -39,3 +39,10 @@ export const loginAction = (email, password) => async (dispatch) => {
         })
     }
 }
+
+export const userLogoutAction = () => (dispatch) => {
+    localStorage.removeItem('userLoginInfo')
+    dispatch({
+        type: USER_LOGOUT,
+    })
+}
