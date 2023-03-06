@@ -8,7 +8,7 @@ import axios from 'axios';
 
 // http://127.0.0.1:8000/api/user/login/
 
-const login = (email, password) => async (dispatch) => {
+export const loginAction = (email, password) => async (dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST
@@ -18,7 +18,7 @@ const login = (email, password) => async (dispatch) => {
             'Content-type':'application/json'
         }}
         const {data} = await axios.post(
-            '/api/users/login',
+            '/api/user/login/',
             {'username':email,
             'password':password},
             config
@@ -29,7 +29,10 @@ const login = (email, password) => async (dispatch) => {
             payload: data
         })
         localStorage.setItem('userLoginInfo', JSON.stringify(data))
+
     } catch (error) {
-        type: USER_LOGIN_FAILURE
+        dispatch({
+            type: USER_LOGIN_FAILURE
+        })
     }
 }
