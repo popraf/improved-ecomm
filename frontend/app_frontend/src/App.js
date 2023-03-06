@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 import LandingPage from './components/screens/LandingPage';
 import ProductPage from './components/screens/ProductPage';
 import UserCartPage from './components/screens/UserCartPage';
+import LoginPage from './components/screens/LoginPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
@@ -18,6 +19,7 @@ function App() {
               <Route path="/" element={ <LandingPage/> } exact />
               <Route path="product/:id" element={ <ProductPage/> } />
               <Route path="cart/:id?" element={ <UserCartPage/> } />
+              <Route path="login" element={ <LoginPage/> } />
             </Routes>
           </Container>
         </main>
