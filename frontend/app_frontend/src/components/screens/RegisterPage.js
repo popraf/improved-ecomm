@@ -15,6 +15,7 @@ const RegisterPage = () => {
     const [message, setMessage] = useState('');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const registerSubmitHandler = (event) => {
         event.preventDefault()
@@ -25,13 +26,24 @@ const RegisterPage = () => {
             dispatch(userRegisterAction(userName, userEmail, userPassword))
         }
     }
+    const userLogIn = useSelector(state => state.userLoginInfo)
+    const { error, loading, userLoginInfo } = userLogIn
+
+    useEffect(
+        () => {
+            if (userLoginInfo) {
+                navigate('/')
+            }
+        }, [userLoginInfo]
+    )
 
     return (
         <FormContainer>
             <h1>Register</h1>
 
             {message && <Message variant='danger'>{message}</Message>}
-            {/* {loading && <Loader/>} */}
+            {error && <Message variant='danger'>{error}</Message>}
+            {loading && <Loader/>}
             <Form onSubmit={registerSubmitHandler}>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Name</Form.Label>
