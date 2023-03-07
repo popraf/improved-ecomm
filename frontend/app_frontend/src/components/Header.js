@@ -17,12 +17,15 @@ function Header() {
 
   const loggedInNavbar = (
       <NavDropdown title="User Menu" id="basic-nav-dropdown" >
-        <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="user/profile">Profile</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={userLogoutHandler}>Logout</NavDropdown.Item>
       </NavDropdown>
   );
-  const notLoggedInNavbar = (<Nav.Link as={Link} to="/login" >Login</Nav.Link>);
+  const notLoggedInNavbar = (<Nav>
+    <Nav.Link as={Link} to="user/login" >Login</Nav.Link>
+    <Nav.Link as={Link} to="user/register" >Register</Nav.Link>
+    </Nav>);
   
 
   return (

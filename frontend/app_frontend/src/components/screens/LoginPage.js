@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import {  Row,  Col,  Image,  ListGroup,  Button,  Card,  Form } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import {  Row,  Col,  Button,  Form } from "react-bootstrap";
 import Message from "../Message";
-import { loginAction } from "../../actions/userActions";
+import { userLoginAction } from "../../actions/userActions";
 import FormContainer from "../FormContainer";
 import Loader from "../Loader";
 
@@ -18,7 +18,7 @@ const LoginPage = () => {
 
     const onSubmitLoginHandler = (event) => {
         event.preventDefault()
-        dispatch(loginAction(userEmail, userPassword))
+        dispatch(userLoginAction(userEmail, userPassword))
         // console.log('Submitted login', userLogIn, 'logged as: ', userLoginInfo)
     };
 
@@ -53,7 +53,7 @@ const LoginPage = () => {
             </Form>
 
             <Row className="py-3">
-                <Col> <Link to='/'>Register new account</Link></Col>
+                <Col> <Link to='/register'>Register new account</Link></Col>
             </Row>
         </FormContainer>
     )
