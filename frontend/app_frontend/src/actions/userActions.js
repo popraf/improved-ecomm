@@ -5,7 +5,10 @@ import {
     USER_LOGOUT,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
-    USER_REGISTER_FAILURE
+    USER_REGISTER_FAILURE,
+    USER_PROFILE_REQUEST,
+    USER_PROFILE_SUCCESS,
+    USER_PROFILE_FAILURE
  } from "../constants/userConstants";
 import axios from 'axios';
 
@@ -82,6 +85,41 @@ export const userRegisterAction = (name, email, password) => async (dispatch) =>
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAILURE,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_PROFILE_REQUEST
+        })
+
+        const {
+            userLoggedAs: { userLoginInfo },
+        } = getState()
+        
+        const config = {headers: {
+            'Content-type':'application/json',
+            Authorization: `Bearer ${userLoginInfo.token}`
+        }}
+
+        const {data} = await axios.get(
+            `/api/user/profile/${id}/`,
+            config
+            )
+
+        dispatch({
+            type: USER_PROFILE_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_PROFILE_FAILURE,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,

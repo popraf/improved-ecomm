@@ -8,6 +8,7 @@ import ProductPage from './components/screens/ProductPage';
 import UserCartPage from './components/screens/UserCartPage';
 import LoginPage from './components/screens/LoginPage';
 import RegisterPage from './components/screens/RegisterPage';
+import ProfilePage from './components/screens/UserProfilePage';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
 
               <Route path="user/login" element={ <LoginPage/> } />
               <Route path="user/register" element={ <RegisterPage/> } />
-              <Route path="user/profile" element={ <LoginPage/> } />
+              <Route path="user/profile" element={ <ProfilePage/> } />
               <Route path="user/lost-password" element={ <LoginPage/> } />
             </Routes>
           </Container>

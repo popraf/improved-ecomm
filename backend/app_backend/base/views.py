@@ -17,6 +17,23 @@ def getUserProfile(request):
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializer = TokenRefreshUserSerializer(user, many=False)
+    data = request.data
+    user.first_name = data['name']
+    user.email = data['email']
+    user.username = data['email']
+
+    if len(data['password'])>5:
+        user.password = make_password(data['password'])
+    
+    user.save()
+    
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def userRegister(request):
     data = request.data
