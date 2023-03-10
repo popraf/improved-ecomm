@@ -9,7 +9,7 @@ import UserCartPage from './components/screens/UserCartPage';
 import LoginPage from './components/screens/LoginPage';
 import RegisterPage from './components/screens/RegisterPage';
 import ProfilePage from './components/screens/UserProfilePage';
-
+import ShippingPage from './components/screens/ShippingPage';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
               <Route path="/" element={ <LandingPage/> } exact />
               <Route path="product/:id" element={ <ProductPage/> } />
               <Route path="cart/:id?" element={ <UserCartPage/> } />
+              <Route path='shipping' element={ <ShippingPage/> } />
 
               <Route path="user/login" element={ <LoginPage/> } />
               <Route path="user/register" element={ <RegisterPage/> } />
