@@ -21,6 +21,7 @@ const ProfilePage = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
+    const [resetMessage, setResetMessage] = useState('')
 
     const userDetails = useSelector(state => state.userProfile)
     const { error, loading, user } = userDetails
@@ -64,7 +65,7 @@ const ProfilePage = () => {
                 'email': email,
                 'password': password
             }))
-            setMessage('')
+            setResetMessage('Successfully updated!')
         }
 
     }
@@ -75,6 +76,7 @@ const ProfilePage = () => {
                 <h2>User Profile</h2>
 
                 {message && <Message variant='danger'>{message}</Message>}
+                {resetMessage && <Message variant='success'>{resetMessage}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
@@ -127,9 +129,7 @@ const ProfilePage = () => {
                         </Form.Control>
                     </Form.Group>
 
-                    <Button type='submit' variant='primary'>
-                        Update
-                </Button>
+                    <Button type='submit' variant='primary'>Update</Button>
 
                 </Form>
             </Col>

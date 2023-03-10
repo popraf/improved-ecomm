@@ -137,13 +137,13 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         })
 
         const {
-            userLogin: { userInfo },
+            userLoginInfo: { userLoginInfo },
         } = getState()
 
         const config = {
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
+                Authorization: `Bearer ${userLoginInfo.token}`
             }
         }
 
@@ -163,7 +163,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
             payload: data
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(data))
+        localStorage.setItem('userLoginInfo', JSON.stringify(data))
 
     } catch (error) {
         dispatch({
