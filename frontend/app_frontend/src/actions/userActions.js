@@ -102,7 +102,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         })
 
         const {
-            userLoggedAs: { userLoginInfo },
+            userLoginInfo: { userLoginInfo },
         } = getState()
         
         const config = {headers: {
@@ -111,7 +111,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         }}
 
         const {data} = await axios.get(
-            `/api/user/profile/${id}/`,
+            `/api/user/${id}/`,
             config
             )
 

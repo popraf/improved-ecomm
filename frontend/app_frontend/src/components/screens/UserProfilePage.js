@@ -9,7 +9,8 @@ import { listProductDetails } from "../../actions/productActions";
 import Loader from "../Loader";
 import Message from "../Message";
 import { updateUserProfile } from "../../actions/userActions";
-
+import { USER_PROFILE_UPDATE_RESET } from "../../constants/userConstants";
+import { getUserDetails } from "../../actions/userActions";
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const ProfilePage = () => {
 
     const userDetails = useSelector(state => state.userProfile)
     const { error, loading, user } = userDetails
+    // const userLogIn = useSelector(state => state.userLoginInfo)
+    // const { error, loading, userLoginInfo } = userLogIn
 
     const userLogIn = useSelector(state => state.userLoginInfo)
     const { userLoginInfo } = userLogIn
@@ -37,9 +40,17 @@ const ProfilePage = () => {
         () => {
             if (!userLoginInfo) {
                 navigate('/user/login')
-            }
-        }, [userLoginInfo]
-    )
+    } else {
+        if (!user || !user.name || success || userLoginInfo._id !== user._id) {
+            dispatch({ type: USER_PROFILE_UPDATE_RESET })
+            dispatch(getUserDetails('profile'))
+            // dispatch(listMyOrders())
+        } else {
+            setName(user.name)
+            setEmail(user.email)
+        }
+    }
+    }, [dispatch, userLoginInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()
