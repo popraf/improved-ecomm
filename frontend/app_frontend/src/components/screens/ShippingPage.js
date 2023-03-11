@@ -3,6 +3,7 @@ import {  Row,  Col,  Button,  Table,  Form } from "react-bootstrap";
 import FormContainer from "../FormContainer";
 import { shippingAddressSaveAction } from "../../actions/shippingActions";
 import { useDispatch, useSelector } from 'react-redux'
+import CheckoutProgress from "../CheckoutProgressBar";
 
 const ShippingPage = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,10 @@ const ShippingPage = () => {
     }
 
     return (
+        <span >
+            <CheckoutProgress step1 step2/>
             <FormContainer >
+
                 <Form onSubmit={submitHandler}>
                 <h1>Order shipping</h1>
 
@@ -72,6 +76,7 @@ const ShippingPage = () => {
                 <Button type='submit' variant='primary'>Update</Button>
                 </Form>
             </FormContainer>
+        </span>
         )
 
 }
