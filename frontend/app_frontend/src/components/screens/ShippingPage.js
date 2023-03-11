@@ -1,16 +1,19 @@
 import { useState } from "react";
 import {  Row,  Col,  Button,  Table,  Form } from "react-bootstrap";
 import FormContainer from "../FormContainer";
+import { shippingAddressSaveAction } from "../../actions/shippingActions";
+import { useDispatch, useSelector } from 'react-redux'
 
 const ShippingPage = () => {
-    const [shipAddress, setShippingAddress] = useState('');
-    const [shipPostCode, setShipPostCode] = useState('');
-    const [shipCity, setShipCity] = useState('');
+    const dispatch = useDispatch();
     const [shipCountry, setShipCountry] = useState('');
+    const [shipCity, setShipCity] = useState('');
+    const [shipPostCode, setShipPostCode] = useState('');
+    const [shipAddress, setShippingAddress] = useState('');
 
     const submitHandler = (event) => {
         event.preventDefault()
-        console.log('submitted')
+        dispatch(shippingAddressSaveAction({shipCountry, shipCity, shipPostCode, shipAddress}))
     }
 
     return (
