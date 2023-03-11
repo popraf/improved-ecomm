@@ -6,9 +6,7 @@ function CheckoutProgress({ step1, step2, step3, step4 }) {
         <Nav className="justify-content-md-center">
             <Nav.Item>
                 {step1 ? (
-                    <Link to='/login' style={{ textDecoration: 'none' }}>
-                        <Nav.Link>Login</Nav.Link>
-                    </Link>
+                        <Nav.Link >Login</Nav.Link>
                 ) : (
                         <Nav.Link disabled>Login</Nav.Link>
                     )}
@@ -16,9 +14,7 @@ function CheckoutProgress({ step1, step2, step3, step4 }) {
 
             <Nav.Item>
                 {step2 ? (
-                    <Link to='/shipping' style={{ textDecoration: 'none' }}>
                         <Nav.Link>Shipping</Nav.Link>
-                    </Link>
                 ) : (
                         <Nav.Link disabled>Shipping</Nav.Link>
                     )}
@@ -26,9 +22,7 @@ function CheckoutProgress({ step1, step2, step3, step4 }) {
 
             <Nav.Item>
                 {step3 ? (
-                    <Link to='/payment' style={{ textDecoration: 'none' }}>
                         <Nav.Link>Payment</Nav.Link>
-                    </Link>
                 ) : (
                         <Nav.Link disabled>Payment</Nav.Link>
                     )}
@@ -36,9 +30,7 @@ function CheckoutProgress({ step1, step2, step3, step4 }) {
 
             <Nav.Item>
                 {step4 ? (
-                    <Link to='/placeorder' style={{ textDecoration: 'none' }}>
                         <Nav.Link>Place Order</Nav.Link>
-                    </Link>
                 ) : (
                         <Nav.Link disabled>Place Order</Nav.Link>
                     )}

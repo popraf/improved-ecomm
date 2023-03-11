@@ -1,8 +1,8 @@
 import { useState } from "react";
-import {  Row,  Col,  Button,  Table,  Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import FormContainer from "../FormContainer";
 import { shippingAddressSaveAction } from "../../actions/shippingActions";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import CheckoutProgress from "../CheckoutProgressBar";
 
 const ShippingPage = () => {
