@@ -74,8 +74,6 @@ function OrderPage({ match }) {
         dispatch(deliverOrder(order))
     }
 
-    console.log('order.orderItems', order)
-
     return loading ? (
         <Loader />
     ) : error ? (

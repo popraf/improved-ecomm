@@ -13,13 +13,13 @@ const PlaceOrderPage = () => {
     const orderShippingAddress = useSelector(state => state.shippingAddress)
     const orderPaymentMethod = useSelector(state => state.paymentMethod)
     const orderCreate = useSelector(state => state.orderCreate)
+    const { error, success, order } = orderCreate
     const orderDetails = useSelector(state => state.orderDetails)
-    const { order, error, loading } = orderCreate
+    const [orderStatus, setOrderStatus] = useState()
 
     cart.itemsPrice = cart.userCartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
     cart.taxPrice = Number((0.082) * cart.itemsPrice).toFixed(2)
-
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
     const placeOrder = () => {
@@ -32,8 +32,17 @@ const PlaceOrderPage = () => {
             taxPrice: cart.taxPrice,
             totalPrice: cart.totalPrice,
         }))
-        navigate(`/pay-order/${order._id}/`)
+        setOrderStatus('Success')
     }
+
+    const ref_id = orderCreate
+    
+    useEffect(() => {
+            if (order) {
+                navigate(`/pay-order/${ref_id.order._id}/`)
+            }
+        }, [orderStatus, dispatch, success]
+    )
     
     return (
     <div>

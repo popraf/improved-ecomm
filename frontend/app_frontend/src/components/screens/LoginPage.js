@@ -19,7 +19,6 @@ const LoginPage = () => {
     const onSubmitLoginHandler = (event) => {
         event.preventDefault()
         dispatch(userLoginAction(userEmail, userPassword))
-        // console.log('Submitted login', userLogIn, 'logged as: ', userLoginInfo)
     };
 
     useEffect(

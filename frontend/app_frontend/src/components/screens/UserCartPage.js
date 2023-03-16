@@ -15,7 +15,6 @@ function UserCartPage({match}) {
 
     const cart = useSelector(state => state.userCartItems)
     const { userCartItems } = cart // destructure object to array
-    // console.log('cartItems: ', userCartItems)
     
     const checkoutHandler = () => {
         navigate('/shipping')
