@@ -12,6 +12,7 @@ import ProfilePage from './components/screens/UserProfilePage';
 import ShippingPage from './components/screens/ShippingPage';
 import PaymentPage from './components/screens/PaymentPage';
 import PlaceOrderPage from './components/screens/PlaceOrderPage';
+import OrderPage from './components/screens/OrderPage';
 
 function App() {
   return (
@@ -24,8 +25,9 @@ function App() {
               <Route path="product/:id" element={ <ProductPage/> } />
               <Route path="cart/:id?" element={ <UserCartPage/> } />
               <Route path='shipping' element={ <ShippingPage/> } />
-              <Route path='payment' element={ <PaymentPage/> } />
+              <Route path='payment-method' element={ <PaymentPage/> } />
               <Route path='place-order' element={ <PlaceOrderPage/> } />
+              <Route path='pay-order/:orderId' element={ <OrderPage/> } />
 
               <Route path="user/login" element={ <LoginPage/> } />
               <Route path="user/register" element={ <RegisterPage/> } />

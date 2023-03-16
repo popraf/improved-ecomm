@@ -4,15 +4,18 @@ import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { savePaymentAction } from "../../actions/paymentActions";
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [paymentMethod, setPaymentMethod] = useState('PayPal')
 
     const submitHandler = (event) => {
         event.preventDefault()
         dispatch(savePaymentAction(paymentMethod))
+        navigate('/place-order');
     }
 
     return (

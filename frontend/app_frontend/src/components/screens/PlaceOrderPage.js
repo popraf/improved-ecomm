@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
@@ -8,12 +8,13 @@ import { createOrderAction } from '../../actions/orderActions'
 
 const PlaceOrderPage = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const cart = useSelector(state => state.userCartItems)
-    const orderCreate = useSelector(state => state.orderCreate)
     const orderShippingAddress = useSelector(state => state.shippingAddress)
     const orderPaymentMethod = useSelector(state => state.paymentMethod)
+    const orderCreate = useSelector(state => state.orderCreate)
     const orderDetails = useSelector(state => state.orderDetails)
-    const { order, error, loading } = orderDetails
+    const { order, error, loading } = orderCreate
 
     cart.itemsPrice = cart.userCartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
@@ -31,6 +32,7 @@ const PlaceOrderPage = () => {
             taxPrice: cart.taxPrice,
             totalPrice: cart.totalPrice,
         }))
+        navigate(`/pay-order/${order._id}/`)
     }
     
     return (
@@ -44,9 +46,9 @@ const PlaceOrderPage = () => {
                             <h2>Shipping</h2>
                             <p>
                                 <strong>Shipping: </strong>
-                                {orderShippingAddress.shippingAddress.shipAddress},  {orderShippingAddress.shippingAddress.shipCity}
+                                {orderShippingAddress.shippingAddress.shipAddress},  {orderShippingAddress.shippingAddress.shipCity},
                                 {'  '}
-                                {orderShippingAddress.shippingAddress.shipPostalCode},
+                                {orderShippingAddress.shippingAddress.shipPostCode}
                                 {'  '}
                                 {orderShippingAddress.shippingAddress.shipCountry}
                             </p>

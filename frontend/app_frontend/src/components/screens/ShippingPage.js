@@ -4,9 +4,11 @@ import FormContainer from "../FormContainer";
 import { shippingAddressSaveAction } from "../../actions/shippingActions";
 import { useDispatch } from 'react-redux'
 import CheckoutProgress from "../CheckoutProgressBar";
+import { useNavigate } from "react-router-dom";
 
 const ShippingPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [shipCountry, setShipCountry] = useState('');
     const [shipCity, setShipCity] = useState('');
     const [shipPostCode, setShipPostCode] = useState('');
@@ -15,6 +17,7 @@ const ShippingPage = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         dispatch(shippingAddressSaveAction({shipCountry, shipCity, shipPostCode, shipAddress}))
+        navigate('/payment-method')
     }
 
     return (
@@ -73,7 +76,7 @@ const ShippingPage = () => {
                     </Form.Control>
                 </Form.Group>
 
-                <Button type='submit' variant='primary'>Update</Button>
+                <Button type='submit' variant='primary'>Continue</Button>
                 </Form>
             </FormContainer>
         </span>

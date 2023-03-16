@@ -18,7 +18,7 @@ function UserCartPage({match}) {
     // console.log('cartItems: ', userCartItems)
     
     const checkoutHandler = () => {
-        navigate('/login?redirect=shipping')
+        navigate('/shipping')
     }
 
     const removeFromCartHandler = (id) => {
