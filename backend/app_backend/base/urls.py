@@ -1,6 +1,6 @@
 # import base.views
 from django.urls import path
-from .views import MyTokenObtainPairView, getUserProfile, updateUserProfile, userRegister, createOrder, getOrderById, updateOrderToPaid, getOrders
+from .views import MyTokenObtainPairView, getUserProfile, updateUserProfile, userRegister, createOrder, getOrderById, updateOrderToPaid, getOrders, getMyOrders
 
 
 urlpatterns = [
@@ -9,7 +9,8 @@ urlpatterns = [
     path('user/login/', MyTokenObtainPairView.as_view(), name='login-token-obtain'),
     # path('user/users/', getUserProfile, name='all-users'),
     path('user/register/', userRegister, name='user-register'),
-    path('user/my-orders/', getOrders, name='my-orders'),
+    path('user/my-orders/', getMyOrders, name='my-orders'),
+    path('user/orders/', getOrders, name='all-orders'),
 
     path('order/order-create/', createOrder, name='order-create'),
     path('order/<str:pk>/', getOrderById, name='order-details'),

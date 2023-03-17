@@ -14,19 +14,27 @@ function Header() {
   }
 
 {/* <i className="fa-solid fa-user"/> */}
+  
+  const adminNavbar = (<span>
+      <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Orders</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Users</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Users</NavDropdown.Item>
+    <NavDropdown.Divider />
+  </span>
+    );
 
   const loggedInNavbar = (
       <NavDropdown title="User Menu" id="basic-nav-dropdown" >
+        { userLoginInfo && userLoginInfo.isAdmin ? adminNavbar :''}
         <NavDropdown.Item as={Link} to="user/profile">Profile</NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={userLogoutHandler}>Logout</NavDropdown.Item>
       </NavDropdown>
   );
   const notLoggedInNavbar = (<Nav>
-    <Nav.Link as={Link} to="user/login" >Login</Nav.Link>
-    <Nav.Link as={Link} to="user/register" >Register</Nav.Link>
+      <Nav.Link as={Link} to="user/login" >Login</Nav.Link>
+      <Nav.Link as={Link} to="user/register" >Register</Nav.Link>
     </Nav>);
-  
 
   return (
     <header>

@@ -13,6 +13,7 @@ import ShippingPage from './components/screens/ShippingPage';
 import PaymentPage from './components/screens/PaymentPage';
 import PlaceOrderPage from './components/screens/PlaceOrderPage';
 import OrderPage from './components/screens/OrderPage';
+import AdminPanelOrdersPage from './components/screens/AdminPanelOrdersPage';
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
               <Route path="user/register" element={ <RegisterPage/> } />
               <Route path="user/profile" element={ <ProfilePage/> } />
               <Route path="user/lost-password" element={ <LoginPage/> } />
+
+              <Route path="admin/orders" element={ <AdminPanelOrdersPage/> } />
             </Routes>
           </Container>
         </main>
