@@ -39,7 +39,7 @@ const PlaceOrderPage = () => {
     
     useEffect(() => {
             if (order) {
-                navigate(`/pay-order/${ref_id.order._id}/`)
+                navigate(`/order/${ref_id.order._id}/`)
             }
         }, [orderStatus, dispatch, success]
     )

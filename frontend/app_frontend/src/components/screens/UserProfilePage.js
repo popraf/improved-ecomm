@@ -11,6 +11,7 @@ import Message from "../Message";
 import { updateUserProfile } from "../../actions/userActions";
 import { USER_PROFILE_UPDATE_RESET } from "../../constants/userConstants";
 import { getUserDetails } from "../../actions/userActions";
+import { listMyOrders } from "../../actions/orderActions";
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const ProfilePage = () => {
     const userUpdateProfile = useSelector(state => state.userProfileUpdate)
     const { success } = userUpdateProfile
 
-    const orderListMy = useSelector(state => state.userCartItems)
+    const orderListMy = useSelector(state => state.orderListMy)
     const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
     useEffect(
@@ -45,7 +46,7 @@ const ProfilePage = () => {
         if (!user || !user.name || success || userLoginInfo._id !== user._id) {
             dispatch({ type: USER_PROFILE_UPDATE_RESET })
             dispatch(getUserDetails('profile'))
-            // dispatch(listMyOrders())
+            dispatch(listMyOrders())
         } else {
             setName(user.name)
             setEmail(user.email)
@@ -134,7 +135,7 @@ const ProfilePage = () => {
                 </Form>
             </Col>
 
-            {/* <Col md={9}>
+            <Col md={9}>
                 <h2>My Orders</h2>
                 {loadingOrders ? (
                     <Loader />
@@ -172,7 +173,7 @@ const ProfilePage = () => {
                                 </tbody>
                             </Table>
                         )}
-            </Col> */}
+            </Col>
         </Row>
     )
 

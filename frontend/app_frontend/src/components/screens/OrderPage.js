@@ -9,13 +9,11 @@ import { getOrderDetails, payOrder, deliverOrder } from '../../actions/orderActi
 import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../../constants/orderConstants'
 
 function OrderPage({ match }) {
-    // const orderId = match.params.id
     const {orderId} = useParams();
     const [qty] = useSearchParams();
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
     const [sdkReady, setSdkReady] = useState(false)
 
@@ -34,17 +32,6 @@ function OrderPage({ match }) {
     if (!loading && !error) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     }
-
-    // const addPayPalScript = () => {
-    //     const script = document.createElement('script')
-    //     script.type = 'text/javascript'
-    //     script.src = 'https://www.paypal.com/sdk/js?client-id=AeDXja18CkwFUkL-HQPySbzZsiTrN52cG13mf9Yz7KiV2vNnGfTDP0wDEN9sGlhZHrbb_USawcJzVDgn'
-    //     script.async = true
-    //     script.onload = () => {
-    //         setSdkReady(true)
-    //     }
-    //     document.body.appendChild(script)
-    // }
 
     useEffect(() => {
 
@@ -184,25 +171,34 @@ function OrderPage({ match }) {
                                         </Row>
                                     </ListGroup.Item>
 
-
                                     {!order.isPaid && (
                                         <ListGroup.Item>
                                             {loadingPay && <Loader />}
 
-                                            {!sdkReady ? (
-                                                <Loader />
-                                            ) : (
-
                                                 <PayPalScriptProvider options={{ "client-id": "AWOLSUHGAy3TISPSeYJ1LfpSzhtTbGRizw3j_CUX8TpV1d7Bm8oXUUNRmgWGS-POS7mG_LIXHeq3NSE9" }}>
-                                                    <PayPalButtons style={{ layout: "horizontal" }} amount={order.totalPrice} />
+                                                    <PayPalButtons 
+                                                    style={{ layout: "horizontal" }} 
+                                                    createOrder={(data, actions) => {
+                                                        return actions.order.create({
+                                                            purchase_units: [
+                                                                {
+                                                                    amount: {
+                                                                        value: order.totalPrice,
+                                                                    },
+                                                                },
+                                                            ],
+                                                        });
+                                                    }}
+                                                    onApprove={(data, actions) => {
+                                                        return actions.order.capture().then((details) => {
+                                                            successPaymentHandler()
+                                                            // console.log('data',data)
+                                                            // console.log('actions',actions)
+                                                        });
+                                                    }}
+                                                    
+                                                    />
                                                 </PayPalScriptProvider>
-                                        
-
-                                                    // <PayPalButtons
-                                                    //     amount={order.totalPrice}
-                                                    //     onSuccess={successPaymentHandler}
-                                                    // />
-                                                )}
                                         </ListGroup.Item>
                                     )}
                                 </ListGroup>

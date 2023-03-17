@@ -27,7 +27,7 @@ function App() {
               <Route path='shipping' element={ <ShippingPage/> } />
               <Route path='payment-method' element={ <PaymentPage/> } />
               <Route path='place-order' element={ <PlaceOrderPage/> } />
-              <Route path='pay-order/:orderId' element={ <OrderPage/> } />
+              <Route path='order/:orderId' element={ <OrderPage/> } />
 
               <Route path="user/login" element={ <LoginPage/> } />
               <Route path="user/register" element={ <RegisterPage/> } />
