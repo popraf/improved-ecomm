@@ -50,7 +50,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def get_orderItems(self, obj):
         items = obj.orderitem_set.all()
-        print(items)
         serializer = OrderItemSerializer(items, many=True)
         return serializer.data
 

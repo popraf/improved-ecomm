@@ -100,7 +100,6 @@ def createOrder(request):
     user = request.user
     data = request.data
     orderItems = data['orderItems']
-    print('1:', orderItems)
     shippingAddress = data['shippingAddress']['shippingAddress']
 
     if orderItems and len(orderItems)==0:
@@ -123,9 +122,7 @@ def createOrder(request):
         )
 
         for item in orderItems:
-            print('Working on item... ', item)
             _product = Product.objects.get(_id = item['product'])
-            print('Found product: ', _product)
             order_item = OrderItem.objects.create(
                 product = _product,
                 order = order,
