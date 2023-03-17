@@ -61,7 +61,7 @@ def userRegister(request):
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getAllUsers(request):
-    users = User.objects.all
+    users = User.objects.all()
     serializer = GetAllUsersSerializer(users, many=True)
     return Response(serializer.data)
 

@@ -17,8 +17,8 @@ function Header() {
   
   const adminNavbar = (<span>
       <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Orders</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Users</NavDropdown.Item>
-      <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Users</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="admin/users" >Admin Panel - Users</NavDropdown.Item>
+      {/* <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Users</NavDropdown.Item> */}
     <NavDropdown.Divider />
   </span>
     );

@@ -14,6 +14,7 @@ import PaymentPage from './components/screens/PaymentPage';
 import PlaceOrderPage from './components/screens/PlaceOrderPage';
 import OrderPage from './components/screens/OrderPage';
 import AdminPanelOrdersPage from './components/screens/AdminPanelOrdersPage';
+import AdminPanelUsersPage from './components/screens/AdminPanelUsersPage';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="user/lost-password" element={ <LoginPage/> } />
 
               <Route path="admin/orders" element={ <AdminPanelOrdersPage/> } />
+              <Route path="admin/users" element={ <AdminPanelUsersPage/> } />
             </Routes>
           </Container>
         </main>
