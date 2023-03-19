@@ -62,7 +62,7 @@ export const createOrderAction = (order) => async (dispatch, getState) => {
             payload: data
         })
 
-        localStorage.removeItem('cartItems')
+        localStorage.removeItem('userCartItems')
 
 
     } catch (error) {

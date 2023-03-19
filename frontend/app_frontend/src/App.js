@@ -15,6 +15,8 @@ import PlaceOrderPage from './components/screens/PlaceOrderPage';
 import OrderPage from './components/screens/OrderPage';
 import AdminPanelOrdersPage from './components/screens/AdminPanelOrdersPage';
 import AdminPanelUsersPage from './components/screens/AdminPanelUsersPage';
+import AdminPanelProductsPage from './components/screens/AdminPanelProductsPage';
+import AdminPanelProductsEditPage from './components/screens/AdminPanelProductsEditPage';
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
 
               <Route path="admin/orders" element={ <AdminPanelOrdersPage/> } />
               <Route path="admin/users" element={ <AdminPanelUsersPage/> } />
+              <Route path="admin/products" element={ <AdminPanelProductsPage/> } />
+              <Route path="admin/product/:id/edit" element={ <AdminPanelProductsEditPage/> } />
             </Routes>
           </Container>
         </main>
