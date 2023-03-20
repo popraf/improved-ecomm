@@ -3,17 +3,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
 import { Button, Row, Col, ListGroup, Image, Card, Table, Form } from 'react-bootstrap'
-import CheckoutProgress from '../CheckoutProgressBar'
-import { createOrderAction } from '../../actions/orderActions'
 import Loader from '../Loader'
-import axios from 'axios'
-import { listProductDetails } from '../../actions/productActions'
-import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
-import { updateProduct } from '../../actions/productActions'
-import FormContainer from '../FormContainer'
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 import { deleteProduct, createProduct } from '../../actions/productActions'
 import { LinkContainer } from 'react-router-bootstrap'
+import { listProducts } from '../../actions/productActions'
 
 const AdminPanelProductsPage = ({match}) => {
     const dispatch = useDispatch()
@@ -43,7 +37,7 @@ const AdminPanelProductsPage = ({match}) => {
         if (successCreate) {
             navigate(`/admin/product/${createdProduct._id}/edit`)
         } else {
-            // dispatch(listProducts(keyword))
+            dispatch(listProducts())
         }
 
     }, [dispatch, userLoginInfo, successDelete, successCreate, createdProduct])
@@ -57,7 +51,7 @@ const AdminPanelProductsPage = ({match}) => {
     }
 
     const createProductHandler = () => {
-        dispatch(createProduct())
+        navigate('/admin/product/create')
     }
 
     return (
@@ -69,7 +63,7 @@ const AdminPanelProductsPage = ({match}) => {
 
                 <Col className='text-right'>
                     <Button className='my-3' onClick={createProductHandler}>
-                        <i className='fas fa-plus'></i> Create Product
+                        <i className='fas fa-plus'></i> Add product
                     </Button>
                 </Col>
             </Row>
@@ -95,7 +89,7 @@ const AdminPanelProductsPage = ({match}) => {
                                         <th>PRICE</th>
                                         <th>CATEGORY</th>
                                         <th>BRAND</th>
-                                        <th></th>
+                                        <th>MODIFY</th>
                                     </tr>
                                 </thead>
 
@@ -110,7 +104,7 @@ const AdminPanelProductsPage = ({match}) => {
 
                                             <td>
                                                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                                                    <Button variant='light' className='btn-sm'>
+                                                    <Button variant='dark' className='btn-sm'>
                                                         <i className='fas fa-edit'></i>
                                                     </Button>
                                                 </LinkContainer>

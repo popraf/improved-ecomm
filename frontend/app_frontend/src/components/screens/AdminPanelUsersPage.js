@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Loader'
@@ -18,9 +18,6 @@ const AdminPanelUsersPage = () => {
     const userLogIn = useSelector(state => state.userLoginInfo)
     const { userLoginInfo } = userLogIn
   
-    // const userDelete = useSelector(state => state.userDelete)
-    // const { success: successDelete } = userDelete
-
     useEffect(() => {
         if (userLoginInfo && userLoginInfo.isAdmin) {
             dispatch(listUsers())
@@ -43,27 +40,29 @@ const AdminPanelUsersPage = () => {
                                 <tr>
                                     <th>ID</th>
                                     <th>NAME</th>
+                                    <th>username</th>
                                     <th>EMAIL</th>
                                     <th>ADMIN</th>
-                                    <th></th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 {users.map(_user => (
-                                    <tr key={_user._id}>
-                                        <td>{_user._id}</td>
-                                        <td>{_user.name}</td>
+                                    <tr key={_user.id}>
+                                        <td>{_user.id}</td>
+                                        <td>{_user.first_name}</td>
+                                        <td>{_user.username}</td>
                                         <td>{_user.email}</td>
-                                        <td>{_user.isAdmin ? (
+                                        <td>{_user.is_staff ? (
                                             <i className='fas fa-check' style={{ color: 'green' }}></i>
                                         ) : (
-                                                <i className='fas fa-check' style={{ color: 'red' }}></i>
+                                                <i className='fas fa-xmark' style={{ color: 'red' }}></i>
                                             )}</td>
 
                                         <td>
-                                            <Link to={`/admin/user/${_user._id}/edit`}>
-                                                <Button variant='light' className='btn-sm'>
+                                            <Link to={`/admin/user/${_user.id}/edit`}>
+                                                <Button variant='dark' className='btn-sm'>
                                                     <i className='fas fa-edit'></i>
                                                 </Button>
                                             </Link>

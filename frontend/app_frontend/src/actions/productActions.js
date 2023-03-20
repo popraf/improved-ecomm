@@ -59,18 +59,18 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         })
 
         const {
-            userLogin: { userInfo },
+            userLoginInfo: { userLoginInfo },
         } = getState()
 
         const config = {
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
+                Authorization: `Bearer ${userLoginInfo.token}`
             }
         }
 
         const { data } = await axios.put(
-            `/api/products/update/${product._id}/`,
+            `/api/product/update/${product._id}/`,
             product,
             config
         )
@@ -103,18 +103,18 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         })
 
         const {
-            userLogin: { userInfo },
+            userLoginInfo: { userLoginInfo },
         } = getState()
 
         const config = {
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
+                Authorization: `Bearer ${userLoginInfo.token}`
             }
         }
 
         const { data } = await axios.delete(
-            `/api/products/delete/${id}/`,
+            `/api/product/delete/${id}/`,
             config
         )
 
@@ -140,18 +140,18 @@ export const createProduct = () => async (dispatch, getState) => {
         })
 
         const {
-            userLogin: { userInfo },
+            userLoginInfo: { userLoginInfo },
         } = getState()
 
         const config = {
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${userInfo.token}`
+                Authorization: `Bearer ${userLoginInfo.token}`
             }
         }
 
         const { data } = await axios.post(
-            `/api/products/create/`,
+            `/api/product/create/`,
             {},
             config
         )

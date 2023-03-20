@@ -20,9 +20,7 @@ const reducer = combineReducers({
     shippingAddress: shippingAddressReducer,
     paymentMethod: paymentMethodReducer,
     userList: userListReducer,
-    
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
+
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,

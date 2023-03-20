@@ -41,7 +41,7 @@ const AdminPanelOrdersPage = () => {
                                     <th>Total</th>
                                     <th>PAID</th>
                                     <th>DELIVERED</th>
-                                    <th></th>
+                                    <th>DETAILS</th>
                                 </tr>
                             </thead>
 
@@ -56,20 +56,20 @@ const AdminPanelOrdersPage = () => {
                                         <td>{order.isPaid ? (
                                             order.paidAt.substring(0, 10)
                                         ) : (
-                                                <i className='fas fa-check' style={{ color: 'red' }}></i>
+                                                <i className='fas fa-xmark' style={{ color: 'red' }}></i>
                                             )}
                                         </td>
 
                                         <td>{order.isDelivered ? (
                                             order.deliveredAt.substring(0, 10)
                                         ) : (
-                                                <i className='fas fa-check' style={{ color: 'red' }}></i>
+                                                <i className='fas fa-xmark' style={{ color: 'red' }}></i>
                                             )}
                                         </td>
 
                                         <td>
                                             <Link to={`/order/${order._id}`}>
-                                                <Button variant='light' className='btn-sm'>
+                                                <Button variant='dark' className='btn-sm'>
                                                     Details
                                                 </Button>
                                             </Link>
