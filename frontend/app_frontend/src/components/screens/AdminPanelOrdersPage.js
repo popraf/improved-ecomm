@@ -42,6 +42,7 @@ const AdminPanelOrdersPage = () => {
                                     <th>PAID</th>
                                     <th>DELIVERED</th>
                                     <th>DETAILS</th>
+                                    <th>MARK AS DELIVERED</th>
                                 </tr>
                             </thead>
 
@@ -73,8 +74,13 @@ const AdminPanelOrdersPage = () => {
                                                     Details
                                                 </Button>
                                             </Link>
-
-
+                                        </td>
+                                        <td>
+                                            <Link to={`/order/${order._id}`}>
+                                                <Button variant='dark' className='btn-sm'>
+                                                    Delivered
+                                                </Button>
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))}

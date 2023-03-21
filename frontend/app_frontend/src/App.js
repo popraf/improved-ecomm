@@ -15,6 +15,7 @@ import PlaceOrderPage from './components/screens/PlaceOrderPage';
 import OrderPage from './components/screens/OrderPage';
 import AdminPanelOrdersPage from './components/screens/AdminPanelOrdersPage';
 import AdminPanelUsersPage from './components/screens/AdminPanelUsersPage';
+import AdminPanelUsersEditPage from './components/screens/AdminPanelUsersEditPage';
 import AdminPanelProductsPage from './components/screens/AdminPanelProductsPage';
 import AdminPanelProductsEditPage from './components/screens/AdminPanelProductsEditPage';
 import AdminPanelCreateProductPage from './components/screens/AdminPanelCreateProductPage';
@@ -41,6 +42,7 @@ function App() {
 
               <Route path="admin/orders" element={ <AdminPanelOrdersPage/> } />
               <Route path="admin/users" element={ <AdminPanelUsersPage/> } />
+              <Route path="admin/user/:id/edit" element={ <AdminPanelUsersEditPage/> } />
               <Route path="admin/products" element={ <AdminPanelProductsPage/> } />
               <Route path="admin/product/:id/edit" element={ <AdminPanelProductsEditPage/> } />
               <Route path="admin/product/create" element={ <AdminPanelCreateProductPage/> } />

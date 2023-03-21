@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False) # set null - if user is deleted, then the products stays in shop; however, this is not the case within our marketplace
     name = models.CharField(max_length=200, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True) #todo: add multiple images -> additional model for imgs
+    image = models.ImageField(null=True, blank=True, default='placeholder.png')
     brand = models.CharField(max_length=200, null=True, blank=True)
     category = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(max_length=1500, null=True, blank=True)
