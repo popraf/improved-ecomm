@@ -2,9 +2,10 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from products.models import Product
-from products.serializers import ProductSerializer
+from products.serializers import ProductSerializer, CreateProductSerializer
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework import status
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -33,19 +34,44 @@ def getProduct(request, pk):
 @permission_classes([IsAdminUser])
 def createProduct(request):
     user = request.user
+    data = request.data
 
-    product = Product.objects.create(
-        user=user,
-        name='Sample Name',
-        price=0,
-        brand='Sample Brand',
-        countInStock=0,
-        category='Sample Category',
-        description=''
-    )
+    try:
+        product = Product.objects.create(
+            user=user,
+            name=data['name'],
+            image=data['image'],
+            price=data['price'],
+            brand=data['brand'],
+            countInStock=data['countInStock'],
+            category=data['category'],
+            description=data['description']
+        )
 
-    serializer = ProductSerializer(product, many=False)
-    return Response(serializer.data)
+        serializer = CreateProductSerializer(product, many=False)
+        return Response(serializer.data)
+    
+    except:
+        message = {'detail':'Error while adding new product.'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['POST'])
+# def userRegister(request):
+#     data = request.data
+#     try:
+#         user = User.objects.create(
+#             first_name = data['name'],
+#             username = data['email'],
+#             email = data['email'],
+#             password = make_password(data['password'])
+#         )
+#         serializer = TokenRefreshUserSerializer(user, many=False)
+#         return Response(serializer.data)
+#     except:
+#         message = {'detail':'User with this email already exists.'}
+#         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])

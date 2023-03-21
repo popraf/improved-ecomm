@@ -19,6 +19,7 @@ function Header() {
       <NavDropdown.Item as={Link} to="admin/orders" >Admin Panel - Orders</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="admin/users" >Admin Panel - Users</NavDropdown.Item>
       <NavDropdown.Item as={Link} to="admin/products" >Admin Panel - Manage Inventory</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="admin/product/create" >Admin Panel - Add Product</NavDropdown.Item>
     <NavDropdown.Divider />
   </span>
     );

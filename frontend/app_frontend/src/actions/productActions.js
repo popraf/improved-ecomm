@@ -70,7 +70,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.put(
-            `/api/product/update/${product._id}/`,
+            `/api/manage/product/update/${product._id}/`,
             product,
             config
         )
@@ -114,7 +114,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.delete(
-            `/api/product/delete/${id}/`,
+            `/api/manage/product/delete/${id}/`,
             config
         )
 
@@ -150,15 +150,15 @@ export const createProduct = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(
-            `/api/product/create/`,
-            {},
-            config
-        )
-        dispatch({
-            type: PRODUCT_CREATE_SUCCESS,
-            payload: data,
-        })
+        // const { data } = await axios.post(
+        //     `/api/product/create/`,
+        //     {},
+        //     config
+        // )
+        // dispatch({
+        //     type: PRODUCT_CREATE_SUCCESS,
+        //     payload: data,
+        // })
 
 
     } catch (error) {
