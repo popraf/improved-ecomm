@@ -8,6 +8,7 @@ import CheckoutProgress from '../CheckoutProgressBar'
 import { createOrderAction } from '../../actions/orderActions'
 import { listUsers } from '../../actions/userActions'
 import FormContainer from '../FormContainer'
+import { createProduct } from '../../actions/productActions'
 
 
 const AdminPanelCreateProductPage = () => {
@@ -22,7 +23,7 @@ const AdminPanelCreateProductPage = () => {
     const [price, setPrice] = useState(1)
     const [countInStock, setCountInStock] = useState(1)
 
-    const [image_url, setImage_url] = useState()
+    const [image_url, setImage_url] = useState('')
 
     const userLogIn = useSelector(state => state.userLoginInfo)
     const { userLoginInfo } = userLogIn
@@ -36,6 +37,15 @@ const AdminPanelCreateProductPage = () => {
 
     const productSubmitHandler = (event) => {
         event.preventDefault()
+        dispatch(createProduct({
+            name: productName, 
+            brand: brand, 
+            category: category, 
+            description: description, 
+            price: price, 
+            countInStock: countInStock, 
+            image: image_url}))
+        navigate('/admin/products')
     }
 
     // const registerSubmitHandler = (event) => {
@@ -99,7 +109,7 @@ const AdminPanelCreateProductPage = () => {
 
                 <Form.Group className="mb-3" controlId="description">
                     <Form.Label>Image</Form.Label>
-                    <Form.Control type="file" accept="image/jpeg,image/png,image/gif" onChange={(event) => setImage_url(event.target.value)}></Form.Control>
+                    <Form.Control type="file" accept="image/jpeg,image/png,image/gif" onChange={(event) => setImage_url(event.target.files[0])}></Form.Control>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">Add product</Button>

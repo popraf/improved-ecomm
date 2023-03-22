@@ -11,19 +11,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class CreateProductSerializer(serializers.ModelSerializer):
     product = serializers.SerializerMethodField(read_only=True)
-    image_url = serializers.ImageField(required=False)
+    # image_url = serializers.ImageField(required=False)
 
     class Meta:
         model = Product
-        fields = ['user','name','image_url','price','brand','countInStock','category','description']
+        fields = ['product','user','name','price','brand','countInStock','category','description']#,'image_url'
 
-# class OrderSerializer(serializers.ModelSerializer):
-#     orderItems = serializers.SerializerMethodField(read_only=True)
-#     shippingAddress = serializers.SerializerMethodField(read_only=True)
-#     user = serializers.SerializerMethodField(read_only=True)
-    
-#     class Meta:
-#         model = Order
-#         fields = '__all__'
-        # fields = ['username', 'email','id', 'name', 'isAdmin', 'token']
-
+    def get_product(self, obj):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return serializer.data

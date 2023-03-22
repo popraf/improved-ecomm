@@ -35,23 +35,29 @@ def getProduct(request, pk):
 def createProduct(request):
     user = request.user
     data = request.data
+    # print('---- REQ USER:', user)
+    # print('---- PRODUCT VIEWS//OBTAINED DATA: ', data)
 
     try:
         product = Product.objects.create(
             user=user,
             name=data['name'],
-            image=data['image'],
-            price=data['price'],
+            # image=data['image'],
+            price=float(data['price']),
             brand=data['brand'],
-            countInStock=data['countInStock'],
+            countInStock=int(data['countInStock']),
             category=data['category'],
             description=data['description']
         )
-
+        # print('created')
         serializer = CreateProductSerializer(product, many=False)
+        # print('serialized')
         return Response(serializer.data)
     
-    except:
+    except Exception as e:
+        # print('exception', e)
+        # errors = e.get_full_details()
+        # print(errors)
         message = {'detail':'Error while adding new product.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 

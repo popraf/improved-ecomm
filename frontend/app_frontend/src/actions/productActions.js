@@ -133,7 +133,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     }
 }
 
-export const createProduct = () => async (dispatch, getState) => {
+export const createProduct = (createdProduct) => async (dispatch, getState) => {
     try {
         dispatch({
             type: PRODUCT_CREATE_REQUEST
@@ -150,15 +150,16 @@ export const createProduct = () => async (dispatch, getState) => {
             }
         }
 
-        // const { data } = await axios.post(
-        //     `/api/product/create/`,
-        //     {},
-        //     config
-        // )
-        // dispatch({
-        //     type: PRODUCT_CREATE_SUCCESS,
-        //     payload: data,
-        // })
+        const { data } = await axios.post(
+            `/api/manage/product/create/`,
+            createdProduct,
+            config
+        )
+        
+        dispatch({
+            type: PRODUCT_CREATE_SUCCESS,
+            payload: data,
+        })
 
 
     } catch (error) {
@@ -170,3 +171,43 @@ export const createProduct = () => async (dispatch, getState) => {
         })
     }
 }
+
+
+// export const userRegisterAction = (name, email, password) => async (dispatch) => {
+//     try {
+//         dispatch({
+//             type: USER_REGISTER_REQUEST
+//         })
+        
+//         const config = {headers: {
+//             'Content-type':'application/json'
+//         }}
+//         const {data} = await axios.post(
+//             '/api/user/register/',
+//             {
+//                 'name':name,
+//                 'email':email,
+//                 'password':password
+//             },
+//             config
+//             )
+
+//         dispatch({
+//             type: USER_REGISTER_SUCCESS,
+//             payload: data
+//         })
+
+//         dispatch({
+//             type: USER_LOGIN_SUCCESS,
+//             payload: data
+//         })
+
+//     } catch (error) {
+//         dispatch({
+//             type: USER_REGISTER_FAILURE,
+//             payload: error.response && error.response.data.detail
+//                 ? error.response.data.detail
+//                 : error.message,
+//         })
+//     }
+// }
