@@ -14,7 +14,6 @@ import { createProduct } from '../../actions/productActions'
 const AdminPanelCreateProductPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    // fields = ['user','name','image_url','price','brand','countInStock','category','description']
 
     const [productName, setProductName] = useState('')
     const [brand, setBrand] = useState('')
@@ -23,7 +22,7 @@ const AdminPanelCreateProductPage = () => {
     const [price, setPrice] = useState(1)
     const [countInStock, setCountInStock] = useState(1)
 
-    const [image_url, setImage_url] = useState('')
+    const [image_url, setImage_url] = useState(null)
 
     const userLogIn = useSelector(state => state.userLoginInfo)
     const { userLoginInfo } = userLogIn
@@ -47,17 +46,6 @@ const AdminPanelCreateProductPage = () => {
             image: image_url}))
         navigate('/admin/products')
     }
-
-    // const registerSubmitHandler = (event) => {
-    //     event.preventDefault()
-
-    //     if (userPassword != confirmPassword) {
-    //         setMessage('Passwords are not matching')
-    //     } else {
-    //         dispatch(userRegisterAction(userName, userEmail, userPassword))
-    //     }
-    // }
-
 
     return (
         <FormContainer>

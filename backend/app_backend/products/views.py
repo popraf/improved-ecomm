@@ -39,45 +39,25 @@ def createProduct(request):
     # print('---- PRODUCT VIEWS//OBTAINED DATA: ', data)
 
     try:
+        print('image get: ', data['image'])
         product = Product.objects.create(
             user=user,
             name=data['name'],
-            # image=data['image'],
+            image=data['image'],
             price=float(data['price']),
             brand=data['brand'],
             countInStock=int(data['countInStock']),
             category=data['category'],
             description=data['description']
         )
-        # print('created')
         serializer = CreateProductSerializer(product, many=False)
         # print('serialized')
         return Response(serializer.data)
     
     except Exception as e:
         # print('exception', e)
-        # errors = e.get_full_details()
-        # print(errors)
         message = {'detail':'Error while adding new product.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['POST'])
-# def userRegister(request):
-#     data = request.data
-#     try:
-#         user = User.objects.create(
-#             first_name = data['name'],
-#             username = data['email'],
-#             email = data['email'],
-#             password = make_password(data['password'])
-#         )
-#         serializer = TokenRefreshUserSerializer(user, many=False)
-#         return Response(serializer.data)
-#     except:
-#         message = {'detail':'User with this email already exists.'}
-#         return Response(message, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
