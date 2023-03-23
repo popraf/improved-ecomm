@@ -91,8 +91,8 @@ const AdminPanelCreateProductPage = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="countInStock">
-                    <Form.Label>Count in stock</Form.Label>
-                    <Form.Control type="number" required placeholder="Count in stock" value={countInStock} onChange={(event) => setCountInStock(event.target.value)}></Form.Control>
+                    <Form.Label>Stock</Form.Label>
+                    <Form.Control type="number" required placeholder="Stock" value={countInStock} onChange={(event) => setCountInStock(event.target.value)}></Form.Control>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="description">

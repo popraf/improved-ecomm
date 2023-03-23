@@ -5,6 +5,7 @@ import Message from '../Message'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import CheckoutProgress from '../CheckoutProgressBar'
 import { createOrderAction } from '../../actions/orderActions'
+import { backendApiURL } from '../../http-common'
 
 const PlaceOrderPage = () => {
     const dispatch = useDispatch()
@@ -81,7 +82,7 @@ const PlaceOrderPage = () => {
                                             <ListGroup.Item key={index}>
                                                 <Row>
                                                     <Col md={1}>
-                                                        <Image src={item.image} alt={item.name} fluid rounded />
+                                                        <Image src={`${backendApiURL}${item.image}`} alt={item.name} fluid rounded />
                                                     </Col>
 
                                                     <Col>

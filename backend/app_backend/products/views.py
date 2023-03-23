@@ -72,6 +72,14 @@ def updateProduct(request, pk):
     product.category = data['category']
     product.description = data['description']
 
+    if data['removeImageFlag']=='true':
+        product.image = 'placeholder.png'
+    else:
+        if type(data['image'])==type(' '): # class str type match
+            product.image = data['image'].replace('/images','')
+        else:
+            product.image = data['image']
+
     product.save()
 
     serializer = ProductSerializer(product, many=False)

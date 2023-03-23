@@ -7,6 +7,7 @@ import Loader from '../Loader'
 import Message from '../Message'
 import { getOrderDetails, payOrder, deliverOrder } from '../../actions/orderActions'
 import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../../constants/orderConstants'
+import { backendApiURL } from '../../http-common';
 
 function OrderPage({ match }) {
     const {orderId} = useParams();
@@ -115,7 +116,7 @@ function OrderPage({ match }) {
                                                     <ListGroup.Item key={index}>
                                                         <Row>
                                                             <Col md={1}>
-                                                                <Image src={item.image} alt={item.name} fluid rounded />
+                                                                <Image src={`${backendApiURL}${item.image}`} alt={item.name} fluid rounded />
                                                             </Col>
 
                                                             <Col>

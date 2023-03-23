@@ -1,227 +1,153 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
 import { Button, Row, Col, ListGroup, Image, Card, Table, Form } from 'react-bootstrap'
-import CheckoutProgress from '../CheckoutProgressBar'
 import { createOrderAction } from '../../actions/orderActions'
 import Loader from '../Loader'
-import axios from 'axios'
 import { listProductDetails } from '../../actions/productActions'
-import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
 import { updateProduct } from '../../actions/productActions'
 import FormContainer from '../FormContainer'
+import { backendApiURL } from '../../http-common'
 
-const AdminPanelProductsPage = ({match}) => {
+const AdminPanelProductsEditPage = ({match}) => {
     // const productId = match.params.id
-    const {productId} = useParams()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {id} = useParams()
 
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState(0)
-    const [image, setImage] = useState('')
+    const [productName, setProductName] = useState('')
     const [brand, setBrand] = useState('')
     const [category, setCategory] = useState('')
-    const [countInStock, setCountInStock] = useState(0)
     const [description, setDescription] = useState('')
-    const [uploading, setUploading] = useState(false)
+    const [price, setPrice] = useState(1)
+    const [countInStock, setCountInStock] = useState(1)
+    const [removeImage, setRemoveImage] = useState(false)
 
-    const dispatch = useDispatch()
+    const [image_url, setImage_url] = useState(null)
 
-    const productDetails = useSelector(state => state.productDetails)
-    const { error, loading, product } = productDetails
+    const userLogIn = useSelector(state => state.userLoginInfo)
+    const { userLoginInfo } = userLogIn
 
-    const productUpdate = useSelector(state => state.productUpdate)
-    const { error: errorUpdate, loading: loadingUpdate, success: successUpdate } = productUpdate
-
+    const productDetails = useSelector((state) => state.productDetails);
+    const { loading, error, product } = productDetails;
 
     useEffect(() => {
+        dispatch(listProductDetails(id));//OK
+    }, []);
 
-        if (successUpdate) {
-            dispatch({ type: PRODUCT_UPDATE_RESET })
-            // history.push('/admin/productlist')
-        } else {
-            if (!product.name || product._id !== Number(productId)) {
-                dispatch(listProductDetails(productId))
-            } else {
-                setName(product.name)
-                setPrice(product.price)
-                setImage(product.image)
-                setBrand(product.brand)
-                setCategory(product.category)
-                setCountInStock(product.countInStock)
-                setDescription(product.description)
+    useEffect(() => {
+        setProductName(product.name)
+        setBrand(product.brand)
+        setCategory(product.category)
+        setDescription(product.description)
+        setPrice(product.price)
+        setCountInStock(product.countInStock)
+        setImage_url(product.image)
+    }, [product]);
 
-            }
+    useEffect(() => {
+        if (!userLoginInfo || !userLoginInfo.isAdmin) {
+            navigate('/user/login')
         }
 
+    }, [userLoginInfo])
 
-
-    }, [dispatch, product, productId, successUpdate])
-
-    const submitHandler = (e) => {
-        e.preventDefault()
+    const submitHandler = (event) => {
+        event.preventDefault()
         dispatch(updateProduct({
-            _id: productId,
-            name,
-            price,
-            image,
-            brand,
-            category,
-            countInStock,
-            description
+            _id: id,
+            name: productName, 
+            brand: brand, 
+            category: category, 
+            description: description, 
+            price: price, 
+            countInStock: countInStock, 
+            image: image_url,
+            removeImageFlag: removeImage
         }))
+        // navigate('/admin/products')
     }
 
-    const uploadFileHandler = async (e) => {
-        const file = e.target.files[0]
-        const formData = new FormData()
-
-        formData.append('image', file)
-        formData.append('product_id', productId)
-
-        setUploading(true)
-
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-
-            const { data } = await axios.post('/api/products/upload/', formData, config)
-
-
-            setImage(data)
-            setUploading(false)
-
-        } catch (error) {
-            setUploading(false)
-        }
-    }
-
-
+//     const checkboxRef = useRef(1);
+//   const [checkbox, setCheckbox] = useState(0);
+//   const handleChange = () => {
+//     setCheckbox(checkboxRef.current);
+//   };
+    // console.log(product.image)
     return (
         <div>
-            <Link to='/admin/productlist'>
-                Go Back
-            </Link>
 
             <FormContainer>
                 <h1>Edit Product</h1>
-                {loadingUpdate && <Loader />}
-                {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
-                {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message>
-                    : (
                         <Form onSubmit={submitHandler}>
 
-                            <Form.Group controlId='name'>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-
-                                    type='name'
-                                    placeholder='Enter name'
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
-
-                            <Form.Group controlId='price'>
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control
-
-                                    type='number'
-                                    placeholder='Enter price'
-                                    value={price}
-                                    onChange={(e) => setPrice(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
+                        <Form.Group className="mb-3" controlId="productName">
+                    <Form.Label>Product name</Form.Label>
+                    <Form.Control type="text" required placeholder="Enter name" maxLength="200" value={productName} onChange={(event) => setProductName(event.target.value)}></Form.Control>
+                </Form.Group>
 
 
-                            <Form.Group controlId='image'>
-                                <Form.Label>Image</Form.Label>
-                                <Form.Control
-
-                                    type='text'
-                                    placeholder='Enter image'
-                                    value={image}
-                                    onChange={(e) => setImage(e.target.value)}
-                                >
-                                </Form.Control>
-
-                                <Form.File
-                                    id='image-file'
-                                    label='Choose File'
-                                    custom
-                                    onChange={uploadFileHandler}
-                                >
-
-                                </Form.File>
-                                {uploading && <Loader />}
-
-                            </Form.Group>
+                <Form.Group className="mb-3" controlId="brand">
+                    <Form.Label>Brand</Form.Label>
+                    <Form.Control type="text" required placeholder="Brand" maxLength="200" value={brand} onChange={(event) => setBrand(event.target.value)}></Form.Control>
+                </Form.Group>
 
 
-                            <Form.Group controlId='brand'>
-                                <Form.Label>Brand</Form.Label>
-                                <Form.Control
+                <Form.Group className="mb-3" controlId="category">
+                    <Form.Label>Category</Form.Label>
+                    <Form.Control type="text" required placeholder="Category" maxLength="200" value={category} onChange={(event) => setCategory(event.target.value)}></Form.Control>
+                </Form.Group>
 
-                                    type='text'
-                                    placeholder='Enter brand'
-                                    value={brand}
-                                    onChange={(e) => setBrand(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label>Description</Form.Label>
+                    <textarea 
+                    className="form-control" 
+                    id="description" 
+                    placeholder="Description" 
+                    rows="3" 
+                    maxLength="1500"
+                    value={description} 
+                    onChange={(event) => setDescription(event.target.value)}
+                    ></textarea>
+                </Form.Group>
 
-                            <Form.Group controlId='countinstock'>
-                                <Form.Label>Stock</Form.Label>
-                                <Form.Control
+                <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>Unit price</Form.Label>
+                    <Form.Control type="number" min="1" step="0.01" required placeholder="Unit price" value={price} onChange={(event) => setPrice(event.target.value)}></Form.Control>
+                </Form.Group>
 
-                                    type='number'
-                                    placeholder='Enter stock'
-                                    value={countInStock}
-                                    onChange={(e) => setCountInStock(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
+                <Form.Group className="mb-3" controlId="countInStock">
+                    <Form.Label>Stock</Form.Label>
+                    <Form.Control type="number" required placeholder="Stock" value={countInStock} onChange={(event) => setCountInStock(event.target.value)}></Form.Control>
+                </Form.Group>
 
-                            <Form.Group controlId='category'>
-                                <Form.Label>Category</Form.Label>
-                                <Form.Control
+                <Form.Group className="mb-3">
+                    <Form.Label>Current Image</Form.Label>
+                    <Col>
+                        <Image src={`${backendApiURL}${product.image}`} alt={product.name} fluid rounded />
+                    </Col>
+                </Form.Group>
 
-                                    type='text'
-                                    placeholder='Enter category'
-                                    value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Remove current image?</Form.Label>
+                    <Col>
+                        {/* <Form.Check label="Check box to remove current image" onChange={(event) => setRemoveImage(event.target.value)} /> */}
+                        <Form.Check label="Check box to remove current image" checked={removeImage} onChange={() => {setRemoveImage(!removeImage)}}/>
+                    </Col>
+                </Form.Group>
 
-                            <Form.Group controlId='description'>
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label>New Image</Form.Label>
+                    <Form.Control type="file" accept="image/jpeg,image/png,image/gif" onChange={(event) => setImage_url(event.target.files[0])}></Form.Control>
+                </Form.Group>
 
-                                    type='text'
-                                    placeholder='Enter description'
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                >
-                                </Form.Control>
-                            </Form.Group>
-
-
-                            <Button type='submit' variant='primary'>
-                                Update
-                        </Button>
-
-                        </Form>
-                    )}
+                <Button type='submit' variant='primary'>Update</Button>
+                </Form>
 
             </FormContainer >
         </div>    )
 }
 
-export default AdminPanelProductsPage
+export default AdminPanelProductsEditPage

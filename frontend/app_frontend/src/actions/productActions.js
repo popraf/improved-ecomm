@@ -64,7 +64,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-type': 'application/json',
+                'Content-type': 'multipart/form-data',
                 Authorization: `Bearer ${userLoginInfo.token}`
             }
         }
@@ -156,8 +156,8 @@ export const createProduct = (createdProduct) => async (dispatch, getState) => {
             config
         )
         
-        console.log(createdProduct)
-        console.log('createdProduct.image',createdProduct.image)
+        // console.log(createdProduct)
+        // console.log('createdProduct.image',createdProduct.image)
         
         dispatch({
             type: PRODUCT_CREATE_SUCCESS,
