@@ -14,7 +14,9 @@ import {
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
     PRODUCT_CREATE_FAIL,
-    PRODUCT_CREATE_RESET
+    PRODUCT_CREATE_REVIEW_REQUEST,
+    PRODUCT_CREATE_REVIEW_SUCCESS,
+    PRODUCT_CREATE_REVIEW_FAIL
 } from '../constants/productConstants';
 import axios from 'axios';
 
@@ -175,42 +177,39 @@ export const createProduct = (createdProduct) => async (dispatch, getState) => {
     }
 }
 
+export const createProductReview = (productId, review) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_CREATE_REVIEW_REQUEST
+        })
 
-// export const userRegisterAction = (name, email, password) => async (dispatch) => {
-//     try {
-//         dispatch({
-//             type: USER_REGISTER_REQUEST
-//         })
-        
-//         const config = {headers: {
-//             'Content-type':'application/json'
-//         }}
-//         const {data} = await axios.post(
-//             '/api/user/register/',
-//             {
-//                 'name':name,
-//                 'email':email,
-//                 'password':password
-//             },
-//             config
-//             )
+        const {
+            userLoginInfo: { userLoginInfo },
+        } = getState()
 
-//         dispatch({
-//             type: USER_REGISTER_SUCCESS,
-//             payload: data
-//         })
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userLoginInfo.token}`
+            }
+        }
 
-//         dispatch({
-//             type: USER_LOGIN_SUCCESS,
-//             payload: data
-//         })
+        const { data } = await axios.post(
+            `/api/review/product/${productId}/`,
+            review,
+            config
+        )
+        dispatch({
+            type: PRODUCT_CREATE_REVIEW_SUCCESS,
+            payload: data,
+        })
 
-//     } catch (error) {
-//         dispatch({
-//             type: USER_REGISTER_FAILURE,
-//             payload: error.response && error.response.data.detail
-//                 ? error.response.data.detail
-//                 : error.message,
-//         })
-//     }
-// }
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_CREATE_REVIEW_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}

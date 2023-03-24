@@ -11,7 +11,6 @@ import FormContainer from '../FormContainer'
 import { backendApiURL } from '../../http-common'
 
 const AdminPanelProductsEditPage = ({match}) => {
-    // const productId = match.params.id
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {id} = useParams()
@@ -33,7 +32,7 @@ const AdminPanelProductsEditPage = ({match}) => {
     const { loading, error, product } = productDetails;
 
     useEffect(() => {
-        dispatch(listProductDetails(id));//OK
+        dispatch(listProductDetails(id));
     }, []);
 
     useEffect(() => {
@@ -66,15 +65,8 @@ const AdminPanelProductsEditPage = ({match}) => {
             image: image_url,
             removeImageFlag: removeImage
         }))
-        // navigate('/admin/products')
+        navigate('/admin/products')
     }
-
-//     const checkboxRef = useRef(1);
-//   const [checkbox, setCheckbox] = useState(0);
-//   const handleChange = () => {
-//     setCheckbox(checkboxRef.current);
-//   };
-    // console.log(product.image)
     return (
         <div>
 
@@ -133,7 +125,6 @@ const AdminPanelProductsEditPage = ({match}) => {
                 <Form.Group className="mb-3">
                     <Form.Label>Remove current image?</Form.Label>
                     <Col>
-                        {/* <Form.Check label="Check box to remove current image" onChange={(event) => setRemoveImage(event.target.value)} /> */}
                         <Form.Check label="Check box to remove current image" checked={removeImage} onChange={() => {setRemoveImage(!removeImage)}}/>
                     </Col>
                 </Form.Group>
