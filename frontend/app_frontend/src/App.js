@@ -28,6 +28,7 @@ function App() {
           <Container>
             <Routes>
               <Route path="/" element={ <LandingPage/> } exact />
+              {/* <Route path="?keyword=:keyword" element={ <LandingPage/> } /> */}
               <Route path="product/:id" element={ <ProductPage/> } />
               <Route path="cart/:id?" element={ <UserCartPage/> } />
               <Route path='shipping' element={ <ShippingPage/> } />

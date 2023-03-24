@@ -18,7 +18,12 @@ def getRoutes(request):
 # Return all products
 @api_view(['GET'])
 def getAllProducts(request):
-    products = Product.objects.all()
+    query = request.query_params.get('keyword')
+    print('query: ', query)
+    if query == None:
+        query = ''
+
+    products = Product.objects.filter(name__icontains=query).order_by('-createdAt')
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
@@ -29,6 +34,20 @@ def getProduct(request, pk):
     product = Product.objects.get(_id=pk)
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
+
+# @api_view(['GET'])
+# def getFilteredProducts(request):
+#     query = request.query_params.get('keyword')
+#     print('query: ', query)
+#     if query == None:
+#         query = ''
+
+#     products = Product.objects.filter(name__icontains=query).order_by('-createdAt')
+
+
+#     serializer = ProductSerializer(products, many=True)
+#     return Response({'products': serializer.data})
+
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])

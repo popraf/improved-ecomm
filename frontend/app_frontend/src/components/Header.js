@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { userLogoutAction } from '../actions/userActions';
+import SearchPanel from './SearchPanel';
 
 function Header() {
   const userLogIn = useSelector(state => state.userLoginInfo)
@@ -45,6 +46,7 @@ function Header() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
+                
                 <Nav.Link as={Link} to="/" ><i className="fa-solid fa-house"/> Home</Nav.Link>{/* edit icons from FontAwesomeIcon */}
                 <Nav.Link as={Link} to="/cart" ><i className="fa-solid fa-cart-shopping"/> Cart</Nav.Link>
                 {userLoginInfo ? loggedInNavbar : notLoggedInNavbar}
@@ -55,7 +57,7 @@ function Header() {
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">All Products</NavDropdown.Item>
                 </NavDropdown> */}
-                
+                <SearchPanel/>
             </Nav>
             </Navbar.Collapse>
         </Container>

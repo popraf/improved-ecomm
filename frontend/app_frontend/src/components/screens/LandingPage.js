@@ -5,15 +5,18 @@ import { listProducts } from '../../actions/productActions';
 import Product from '../products/Product';
 import Message from '../Message';
 import Loader from '../Loader';
+import { useSearchParams } from 'react-router-dom';
 
 function LandingPage() {
     const dispatch = useDispatch()
+    const [ keyword ] = useSearchParams()
     const productList = useSelector(state => state.productList)
     const { error, loading, products } = productList
 
     useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch]
+        console.log(keyword)
+        dispatch(listProducts(keyword))
+    }, [dispatch, keyword]
     )
 
     return (
