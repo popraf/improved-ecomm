@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import {  Row,  Col,  Image,  ListGroup,  Button,  Card,  Form } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import {  Row,  Col,  Button,  Form } from "react-bootstrap";
 import Message from "../Message";
 import { userRegisterAction } from "../../actions/userActions";
 import FormContainer from "../FormContainer";

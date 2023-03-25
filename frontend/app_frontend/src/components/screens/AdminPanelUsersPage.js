@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Loader'
 import Message from '../Message'
 import { Button, Table } from 'react-bootstrap'
-import CheckoutProgress from '../CheckoutProgressBar'
-import { createOrderAction } from '../../actions/orderActions'
 import { listUsers } from '../../actions/userActions'
 
 

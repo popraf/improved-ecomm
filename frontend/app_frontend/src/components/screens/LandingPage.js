@@ -14,7 +14,6 @@ function LandingPage() {
     const { error, loading, products } = productList
 
     useEffect(() => {
-        console.log(keyword)
         dispatch(listProducts(keyword))
     }, [dispatch, keyword]
     )

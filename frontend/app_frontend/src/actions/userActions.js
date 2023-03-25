@@ -21,7 +21,6 @@ import {
  } from "../constants/userConstants";
 import axios from 'axios';
 
-// http://127.0.0.1:8000/api/user/login/
 
 export const userLoginAction = (email, password) => async (dispatch) => {
     try {

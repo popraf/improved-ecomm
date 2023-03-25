@@ -1,9 +1,7 @@
 from django.urls import path
-from products.views import getAllProducts, getProduct, getRoutes, createProduct, updateProduct, deleteProduct, createProductReview#, getFilteredProducts
+from products.views import getAllProducts, getProduct, getRoutes, createProduct, updateProduct, deleteProduct, createProductReview
 
 urlpatterns = [
-    # path('', getRoutes, name='routes'),
-    # path('', getFilteredProducts, name='product-filter'),
     path('products', getAllProducts, name='products'),
     path('product/<str:pk>/', getProduct, name='product'),
     path('review/product/<str:pk>/', createProductReview, name='product-review'),

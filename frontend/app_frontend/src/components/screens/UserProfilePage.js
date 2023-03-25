@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {  Row,  Col,  Button,  Table,  Form } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
-import { backendApiURL } from "../../http-common";
-import ProductRating from "../products/ProductRating";
-import { listProductDetails } from "../../actions/productActions";
 import Loader from "../Loader";
 import Message from "../Message";
 import { updateUserProfile } from "../../actions/userActions";
@@ -26,8 +23,6 @@ const ProfilePage = () => {
 
     const userDetails = useSelector(state => state.userProfile)
     const { error, loading, user } = userDetails
-    // const userLogIn = useSelector(state => state.userLoginInfo)
-    // const { error, loading, userLoginInfo } = userLogIn
 
     const userLogIn = useSelector(state => state.userLoginInfo)
     const { userLoginInfo } = userLogIn

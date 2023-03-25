@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, Form, Row } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { listProducts } from "../actions/productActions";
 
 
 function SearchPanel() {

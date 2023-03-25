@@ -193,8 +193,6 @@ function OrderPage({ match }) {
                                                     onApprove={(data, actions) => {
                                                         return actions.order.capture().then((details) => {
                                                             successPaymentHandler()
-                                                            // console.log('data',data)
-                                                            // console.log('actions',actions)
                                                         });
                                                     }}
                                                     

@@ -1,5 +1,4 @@
 import { Nav } from "react-bootstrap"
-import { Link } from "react-router-dom";
 
 function CheckoutProgress({ step1, step2, step3, step4 }) {
     return (

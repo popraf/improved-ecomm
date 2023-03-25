@@ -19,7 +19,6 @@ def getRoutes(request):
 @api_view(['GET'])
 def getAllProducts(request):
     query = request.query_params.get('keyword')
-    print('query: ', query)
     if query == None:
         query = ''
 
@@ -35,30 +34,13 @@ def getProduct(request, pk):
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
 
-# @api_view(['GET'])
-# def getFilteredProducts(request):
-#     query = request.query_params.get('keyword')
-#     print('query: ', query)
-#     if query == None:
-#         query = ''
-
-#     products = Product.objects.filter(name__icontains=query).order_by('-createdAt')
-
-
-#     serializer = ProductSerializer(products, many=True)
-#     return Response({'products': serializer.data})
-
-
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def createProduct(request):
     user = request.user
     data = request.data
-    # print('---- REQ USER:', user)
-    # print('---- PRODUCT VIEWS//OBTAINED DATA: ', data)
 
     try:
-        print('image get: ', data['image'])
         product = Product.objects.create(
             user=user,
             name=data['name'],
@@ -70,11 +52,9 @@ def createProduct(request):
             description=data['description']
         )
         serializer = CreateProductSerializer(product, many=False)
-        # print('serialized')
         return Response(serializer.data)
     
     except Exception as e:
-        # print('exception', e)
         message = {'detail':'Error while adding new product.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 

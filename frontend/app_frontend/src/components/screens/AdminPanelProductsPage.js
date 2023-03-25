@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Message'
-import { Button, Row, Col, ListGroup, Image, Card, Table, Form } from 'react-bootstrap'
+import { Button, Row, Col, Table } from 'react-bootstrap'
 import Loader from '../Loader'
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
-import { deleteProduct, createProduct } from '../../actions/productActions'
+import { deleteProduct } from '../../actions/productActions'
 import { LinkContainer } from 'react-router-bootstrap'
 import { listProducts } from '../../actions/productActions'
 
@@ -19,14 +19,9 @@ const AdminPanelProductsPage = ({match}) => {
     const productDeleteState = useSelector(state => state.productDelete)
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDeleteState
 
-    // const productCreate = useSelector(state => state.productCreate)
-    // const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate
-
-
     const userLogIn = useSelector(state => state.userLoginInfo)
     const { userLoginInfo } = userLogIn
 
-    // let keyword = history.location.search
     useEffect(() => {
         dispatch({ type: PRODUCT_CREATE_RESET })
 
