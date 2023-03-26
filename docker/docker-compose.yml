@@ -1,26 +1,31 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ../backend
+      dockerfile: backend.dockerfile
     command: python manage.py runserver 0.0.0.0:8000
+    container_name: impr-comm-backend
     volumes:
-      - .:/app
+      - ../backend:/app_backend
     ports:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - DATABASE_URL=postgres://postgres:mysecretpassword@db:5432/improved-ecomm_db
     networks:
       - my_network
+
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ../frontend
+      dockerfile: frontend.dockerfile
     command: npm start
+    container_name: impr-comm-frontend
     volumes:
-      - ./frontend:/app
+      - ../frontend/app_frontend:/app
       - /app/node_modules
     ports:
       - "3000:3000"
@@ -28,10 +33,21 @@ services:
       - backend
     networks:
       - my_network
+
   db:
-    image: postgres
+    image: postgres:13-alpine
+    container_name: impr-comm-postgres
+    environment:
+      - POSTGRES_DB=improved-ecomm_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+      - db_data:/var/lib/postgresql/data/
     networks:
       - my_network
+
+volumes:
+  db_data:
 
 networks:
   my_network:
