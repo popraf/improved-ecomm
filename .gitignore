@@ -102,7 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+/.env
 .venv
 env/
 venv/
@@ -154,3 +154,4 @@ yarn-error.log*
 .env_docker_notatki
 backend/app_backend/static/images/*
 frontend/app_frontend/public/images/*
+demo/_demo.mp4

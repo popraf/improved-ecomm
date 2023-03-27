@@ -1,8 +1,8 @@
+import { useState, useEffect } from "react";
 import CheckoutProgress from "../CheckoutProgressBar";
 import FormContainer from "../FormContainer";
-import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { savePaymentAction } from "../../actions/paymentActions";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,16 @@ const PaymentPage = () => {
     const navigate = useNavigate();
 
     const [paymentMethod, setPaymentMethod] = useState('PayPal')
+
+    const userLogIn = useSelector(state => state.userLoginInfo)
+    const { userLoginInfo } = userLogIn
+  
+    useEffect(() => {
+        if (!userLoginInfo) {
+            navigate('/user/login')
+        }
+
+    }, [userLoginInfo])
 
     const submitHandler = (event) => {
         event.preventDefault()

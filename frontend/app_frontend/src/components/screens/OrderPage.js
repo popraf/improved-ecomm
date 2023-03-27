@@ -27,17 +27,17 @@ function OrderPage({ match }) {
     const orderDeliver = useSelector(state => state.orderDeliver)
     const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
-    const userLogin = useSelector(state => state.userLoginInfo)
-    const { userInfo } = userLogin
-
+    const userLogIn = useSelector(state => state.userLoginInfo)
+    const { userLoginInfo } = userLogIn
+  
     if (!loading && !error) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     }
 
     useEffect(() => {
 
-        if (!userInfo) {
-            // navigate('/user/login')
+        if (!userLoginInfo) {
+            navigate('/user/login')
         }
 
         if (!order || successPay || order._id !== Number(orderId) || successDeliver) {
@@ -46,9 +46,7 @@ function OrderPage({ match }) {
 
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
-            if (!window.paypal) {
-                // addPayPalScript()
-            } else {
+            if (window.paypal) {
                 setSdkReady(true)
             }
         }
@@ -202,7 +200,7 @@ function OrderPage({ match }) {
                                     )}
                                 </ListGroup>
                                 {loadingDeliver && <Loader />}
-                                {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                {userLoginInfo && userLoginInfo.isAdmin && order.isPaid && !order.isDelivered && (
                                     <ListGroup.Item>
                                         <Button
                                             type='button'
