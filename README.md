@@ -7,19 +7,13 @@ Customized ecommerce store application built with Django REST Framework, React j
 
 
 ### Features
-
-- django
-- react redux
-- postgres/docker img
-- demo payments paypal sandbox
-
-theme from https://bootswatch.com/
-https://react-bootstrap.github.io/
-icons https://cdnjs.com/libraries/font-awesome
-redux react-redux redux-thunk @redux-devtools/extension
-
-Product images should be served via AWS S3/boto/cloudflare cdn, however for this concept project - imgs are served from local dir
+- Admin users/orders/products management
+- Checkout process (integrated PayPal sandbox API)
+- Fully featured shopping cart
+- Products search feature
+- JWT authentication (JSON Web Tokens) between DRF/react
+- Products ratings and reviews
 
 ### Try it yourself
-The best way to run this project is to use Docker. Go to `docker` folder, then run `docker-compose up`.  After building the project, run django migrations and create superuser. 
+The best way to run this project is to use Docker. Go to `docker` folder, then run `docker-compose up`.  After building the project, run django migrations and create superuser. `.env` variables of backend are prepared for docker.
 Also, remember to change paypal account ID (`client-id`) at OrderPage.js.
