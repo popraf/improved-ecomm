@@ -15,5 +15,4 @@ Customized ecommerce store application built with Django REST Framework, React j
 - Products ratings and reviews
 
 ### Try it yourself
-The best way to run this project is to use Docker. Go to `docker` folder, then run `docker-compose up`.  After building the project, run django migrations and create superuser. `.env` variables of backend are prepared for docker.
-Also, remember to change paypal account ID (`client-id`) at OrderPage.js.
+The best way to run this project is to use Docker. Go to `docker` folder, then run `docker-compose up`.  After building the project, run django migrations and create superuser. `.env` (backend) variables are prepared for docker. Remember to change paypal account ID (`client-id`) at OrderPage.js.
