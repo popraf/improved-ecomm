@@ -4,7 +4,9 @@ WORKDIR /app_backend
 
 # Instalacja pakietów systemowych
 RUN apk update && \
-    apk add --no-cache --virtual .build-deps gcc musl-dev
+    apk add --no-cache --virtual .build-deps gcc musl-dev libpq-dev
+
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 # Instalacja Pythonowych zależności
 COPY /app_backend/requirements.txt .
@@ -15,4 +17,6 @@ COPY . /app_backend/
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# RUN python app_backend/manage.py migrate
+
+CMD ["python", "app_backend/manage.py", "runserver", "0.0.0.0:8000"]

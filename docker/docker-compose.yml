@@ -1,11 +1,12 @@
 version: '3.8'
+name: improved-ecomm
 
 services:
   backend:
     build:
       context: ../backend
       dockerfile: backend.dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python app_backend/manage.py runserver 0.0.0.0:8000
     container_name: impr-comm-backend
     volumes:
       - ../backend:/app_backend
@@ -14,19 +15,19 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:mysecretpassword@db:5432/improved-ecomm_db
+      - DATABASE_URL=db://postgres_user:mysecretpassword@db:5432/improved-ecomm_db
     networks:
       - my_network
 
   frontend:
+    image: node:lts-hydrogen
     build:
       context: ../frontend
       dockerfile: frontend.dockerfile
-    command: npm start
+    command: npx serve -s build
     container_name: impr-comm-frontend
     volumes:
       - ../frontend/app_frontend:/app
-      - /app/node_modules
     ports:
       - "3000:3000"
     depends_on:
@@ -37,9 +38,11 @@ services:
   db:
     image: postgres:13-alpine
     container_name: impr-comm-postgres
+    ports:
+      - '5432:5432'
     environment:
       - POSTGRES_DB=improved-ecomm_db
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=postgres_user
       - POSTGRES_PASSWORD=mysecretpassword
     volumes:
       - db_data:/var/lib/postgresql/data/
