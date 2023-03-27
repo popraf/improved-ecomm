@@ -24,7 +24,7 @@ services:
     build:
       context: ../frontend
       dockerfile: frontend.dockerfile
-    command: npx serve -s build
+    command: npm start
     container_name: impr-comm-frontend
     volumes:
       - ../frontend/app_frontend:/app
